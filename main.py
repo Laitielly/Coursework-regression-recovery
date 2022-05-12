@@ -102,8 +102,14 @@ def Write_to_Res(res, predicts, r2, error, coefficient, SST, SSR, Yi, out1):
 
     true, false = 0, 0
     _len = len(Yi)
+    predicts = [round(i) for i in predicts]
     for i in range(_len):
-        if (Yi[i] == round(predicts[i])):
+        if (predicts[i] > 6 or predicts[i] < -1):
+            if (predicts[i] > 6):
+                predicts[i] = 6
+            else:
+                predicts[i] = -1
+        if (Yi[i] == predicts[i]):
             true += 1
             continue
         false += 1
@@ -112,20 +118,22 @@ def Write_to_Res(res, predicts, r2, error, coefficient, SST, SSR, Yi, out1):
     res.write(str(round(true / (true + false) * 100, 2)))
     res.write("%\n")
 
-def DrawPlot(X, Y):
+def DrawPlot(X, Y, namey, namex):
     plt.scatter(X, Y)
-    plt.show()
+    plt.xlabel(namex)
+    plt.ylabel(namey)
 
 def DistributionOfResiduals(file, remains):
     quantile = FreeQuantile(file)
     remains.sort()
-    DrawPlot(quantile, remains)
+    DrawPlot(quantile, remains, 'quantile', 'sort remains')
+    plt.show()
 
 def FreeQuantile(source):
-    file = open(source)
+    file = open(source, "r")
     results = []
     for i in file:
-        results.append(i[1:-3:].replace(",", "."))
+        results.append(i)
 
     file.close()
     results = [float(i) for i in results]
@@ -209,7 +217,7 @@ def main():
     file = "ObDataSet.csv"
     file1 = "ObData_train.csv"
     file2 = "ObData_test.csv"
-    file3 = "quantOb.csv"
+    file3 = "quantile.csv"
     file4 = "resultT.csv"
     res = open("results.txt", "w")
     St = 1.961328292
@@ -221,7 +229,18 @@ def main():
     predicted, coefficient, model = Make_Regression(Xi, Yi, _len)
     SSR, SST, SSE, r2, error, remains, Ym = SSE_SSR_SST(Yi, predicted)
     Write_to_Res(res, predicted, r2, error, coefficient, SST, SSR, Yi, file1)
-    #DrawPlot(predicted, remains)
+    #DrawPlot(predicted, remains, 'Yi', 'remains')
+    #plt.show()
+    # x = list(map(list, zip(*Xi)))
+    # count = 1
+    # for j in range(7):
+    #     for i in range(4):
+    #         if count <= 27:
+    #             plt.subplot(2, 2, i + 1)
+    #             namex = 'X' + str(count)
+    #             DrawPlot(x[count], remains, 'remains', namex)
+    #             count += 1
+    #     plt.show()
     #DistributionOfResiduals(file3, remains)
     DW = DWstat(remains)
     F, MSR, MSE = MSE_MSR_MST(SSE, SSR, _len, __len - 1)
