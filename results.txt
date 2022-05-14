@@ -1,0 +1,33 @@
+ObData_train.csv results:
+Files: ObData_train.csv
+
+Regression coefficients:
+[ 3.11718523e+00  1.53017497e+00  1.58701026e+00  2.23636055e-02
+ -7.38781618e+00  7.54756840e-02  3.00630471e-01  5.27424577e-02
+ -4.24115104e-03  4.43143948e-02  7.69831829e-01  1.03627328e+00
+  5.67727431e-01  7.43352695e-01 -2.44736135e-01 -1.09671224e-03
+ -5.34057003e-02 -8.35933435e-02 -4.51303200e-02  1.10016025e+00
+  9.80479275e-01  1.03654571e+00 -8.69083064e-17  7.14802054e-01
+  4.76193884e-01  4.49117040e-01  8.08917118e-01  6.68155138e-01]
+The standard error of the estimate 0.4092
+Sum of squared errors is equal to 295.6553
+Sum of regression squares is equal to 6666.1705
+Total sum of squares is equal to 6961.8258
+Determination coefficient is 0.9575
+The percentage of matches without errors is 82.47%
+Mean square due to regression is equal to 246.8952
+Error variance is equal to 0.1699
+Test F-statistics is equal to 1453.0355
+Coefficient of Durbin-Watson statistics is equal to 1.2142
+Confidence intervals are recorded in the file resultT.csv
+
+------------------------------------------------------------
+ObData_test.csv results:
+Files: ObData_test.csv
+
+The standard error of the estimate 0.5334
+Sum of squared errors is equal to 96.7528
+Sum of regression squares is equal to 1362.9367
+Total sum of squares is equal to 1459.6895
+Determination coefficient is 0.9337
+The percentage of matches without errors is 73.39%
